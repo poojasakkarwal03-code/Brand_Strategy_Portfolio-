@@ -1,1 +1,1685 @@
 # Brand_Strategy_Portfolio-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Strategy Portfolio — AYURIVA</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory:    #F5F0E8;
+    --terra:    #C4674A;
+    --terra-dk: #8C3E28;
+    --sage:     #6B8F71;
+    --sage-dk:  #2E5733;
+    --charcoal: #2C2C2A;
+    --stone:    #D9D2C4;
+    --stone-dk: #888780;
+    --white:    #FFFFFF;
+  }
+ 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+  html { scroll-behavior: smooth; }
+ 
+  body {
+    background: var(--ivory);
+    color: var(--charcoal);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+ 
+  /* ── GRAIN OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+ 
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 2.5rem;
+    background: rgba(245,240,232,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--stone);
+    transition: background 0.3s;
+  }
+ 
+  .nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--charcoal);
+    text-decoration: none;
+  }
+ 
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+ 
+  .nav-links a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--stone-dk);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+ 
+  .nav-links a:hover { color: var(--terra); }
+ 
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem 6rem 5rem;
+    position: relative;
+    z-index: 2;
+  }
+ 
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--terra);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+ 
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 8vw, 7rem);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: 0.04em;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+ 
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--terra);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+ 
+  .hero-desc {
+    font-size: 0.9rem;
+    color: var(--stone-dk);
+    max-width: 400px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+ 
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 1s forwards;
+  }
+ 
+  .btn-primary {
+    background: var(--terra);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.2s;
+  }
+ 
+  .btn-primary:hover { background: var(--terra-dk); transform: translateY(-1px); }
+ 
+  .btn-secondary {
+    background: transparent;
+    color: var(--charcoal);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    border: 1px solid var(--stone);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+ 
+  .btn-secondary:hover { border-color: var(--charcoal); }
+ 
+  /* Hero right — intersection visual */
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--charcoal);
+  }
+ 
+  .hero-circles {
+    position: relative;
+    width: 340px;
+    height: 340px;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.5s forwards;
+  }
+ 
+  .circle-a {
+    position: absolute;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: var(--terra);
+    opacity: 0.2;
+    top: 0; left: 0;
+    animation: floatA 6s ease-in-out infinite;
+  }
+ 
+  .circle-b {
+    position: absolute;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: var(--sage);
+    opacity: 0.2;
+    bottom: 0; right: 0;
+    animation: floatB 6s ease-in-out infinite;
+  }
+ 
+  .circle-center {
+    position: absolute;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: var(--ivory);
+    opacity: 0.08;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+ 
+  .hero-wordmark {
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: var(--stone);
+    opacity: 0.5;
+    bottom: 2rem;
+    right: 2rem;
+  }
+ 
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 1s 1.5s forwards;
+    z-index: 3;
+  }
+ 
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--terra), transparent);
+    animation: scrollPulse 1.5s ease-in-out infinite;
+  }
+ 
+  .scroll-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--stone-dk);
+    text-transform: uppercase;
+  }
+ 
+  /* ── SECTION COMMON ── */
+  section { padding: 6rem 5rem; }
+ 
+  .section-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: var(--terra);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+ 
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+  }
+ 
+  .section-body {
+    font-size: 0.9rem;
+    color: var(--stone-dk);
+    max-width: 560px;
+    line-height: 1.75;
+  }
+ 
+  /* ── BRIEF ── */
+  .brief {
+    background: var(--charcoal);
+    color: var(--ivory);
+    padding: 6rem 5rem;
+  }
+ 
+  .brief .section-title { color: var(--ivory); }
+  .brief .section-eyebrow { color: var(--terra); }
+ 
+  .brief-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-top: 3rem;
+  }
+ 
+  .brief-cell {
+    background: rgba(255,255,255,0.04);
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .brief-cell::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s;
+  }
+ 
+  .brief-cell.why::before { background: var(--terra); }
+  .brief-cell.how::before { background: var(--sage); }
+  .brief-cell.what::before { background: var(--stone); }
+ 
+  .brief-cell:hover::before { transform: scaleY(1); }
+  .brief-cell:hover { background: rgba(255,255,255,0.07); }
+ 
+  .brief-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+ 
+  .brief-cell.why .brief-label { color: var(--terra); }
+  .brief-cell.how .brief-label { color: var(--sage); }
+  .brief-cell.what .brief-label { color: var(--stone-dk); }
+ 
+  .brief-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--ivory);
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+ 
+  .brief-text {
+    font-size: 0.85rem;
+    color: rgba(245,240,232,0.55);
+    line-height: 1.7;
+  }
+ 
+  /* ── STATS ── */
+  .stats {
+    background: var(--ivory);
+    padding: 5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background-color: var(--stone);
+  }
+ 
+  .stat-box {
+    background: var(--ivory);
+    padding: 3rem 2rem;
+    text-align: center;
+    transition: background 0.3s;
+  }
+ 
+  .stat-box:hover { background: #EDE8DF; }
+  .stat-box.hero-stat { background: var(--charcoal); }
+  .stat-box.hero-stat:hover { background: #1a1a18; }
+ 
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--terra);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+ 
+  .stat-box.hero-stat .stat-num { color: var(--white); }
+ 
+  .stat-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 0.25rem;
+  }
+ 
+  .stat-box.hero-stat .stat-label { color: var(--stone); }
+ 
+  .stat-sub {
+    font-size: 0.75rem;
+    color: var(--stone-dk);
+    font-style: italic;
+  }
+ 
+  .stat-box.hero-stat .stat-sub { color: rgba(196,103,74,0.8); }
+ 
+  /* ── PHASES ── */
+  .phases { padding: 6rem 5rem; }
+ 
+  .phases-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+    align-items: end;
+  }
+ 
+  .phase-nav {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--stone);
+    margin-top: 1.5rem;
+    overflow: hidden;
+  }
+ 
+  .phase-btn {
+    flex: 1;
+    padding: 0.6rem 0.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    background: transparent;
+    color: var(--stone-dk);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    border-right: 1px solid var(--stone);
+    white-space: nowrap;
+  }
+ 
+  .phase-btn:last-child { border-right: none; }
+  .phase-btn.active { background: var(--charcoal); color: var(--ivory); }
+  .phase-btn:hover:not(.active) { background: var(--stone); color: var(--charcoal); }
+ 
+  .phase-panels { position: relative; }
+ 
+  .phase-panel {
+    display: none;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    padding: 3rem;
+    background: var(--white);
+    border: 1px solid var(--stone);
+  }
+ 
+  .phase-panel.active { display: grid; }
+ 
+  .phase-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 6rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--stone);
+    margin-bottom: 1rem;
+  }
+ 
+  .phase-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 0.5rem;
+  }
+ 
+  .phase-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: var(--charcoal);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+ 
+  .phase-desc {
+    font-size: 0.875rem;
+    color: var(--stone-dk);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+ 
+  .phase-deliverables {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+ 
+  .deliverable-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--stone);
+    color: var(--stone-dk);
+  }
+ 
+  .phase-insights {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--stone);
+  }
+ 
+  .phase-insight {
+    background: var(--ivory);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+ 
+  .insight-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--terra);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+ 
+  .insight-text {
+    font-size: 0.85rem;
+    color: var(--charcoal);
+    line-height: 1.6;
+  }
+ 
+  .insight-text strong {
+    color: var(--terra);
+    font-weight: 500;
+  }
+ 
+  /* ── MANIFESTO ── */
+  .manifesto {
+    background: var(--charcoal);
+    padding: 8rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .manifesto::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--terra);
+  }
+ 
+  .manifesto-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--stone-dk);
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+  }
+ 
+  .manifesto-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.25rem, 2.5vw, 1.9rem);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--stone);
+    max-width: 800px;
+  }
+ 
+  .manifesto-text em { color: var(--terra); font-style: italic; }
+  .manifesto-text strong { color: var(--ivory); font-weight: 400; }
+ 
+  .manifesto-tagline {
+    margin-top: 3rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--terra);
+  }
+ 
+  /* ── IDENTITY ── */
+  .identity { padding: 6rem 5rem; }
+ 
+  .identity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+    align-items: start;
+  }
+ 
+  .colour-strip {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 1.5rem;
+  }
+ 
+  .colour-swatch {
+    flex: 1;
+    height: 80px;
+    position: relative;
+    cursor: default;
+    transition: flex 0.3s;
+  }
+ 
+  .colour-swatch:hover { flex: 2; }
+ 
+  .swatch-label {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+ 
+  .colour-swatch:hover .swatch-label { opacity: 1; }
+ 
+  .type-demo {
+    padding: 2rem;
+    background: var(--white);
+    border: 1px solid var(--stone);
+    margin-bottom: 1rem;
+  }
+ 
+  .type-clinical {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    margin-bottom: 0.25rem;
+  }
+ 
+  .type-divider {
+    width: 60%;
+    height: 1px;
+    background: var(--terra);
+    margin: 0.5rem 0;
+  }
+ 
+  .type-ayur {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--sage);
+  }
+ 
+  .type-caption {
+    font-size: 0.75rem;
+    color: var(--stone-dk);
+    margin-top: 0.75rem;
+    line-height: 1.6;
+  }
+ 
+  /* Logo mark */
+  .logo-demo {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: var(--charcoal);
+    margin-bottom: 1rem;
+  }
+ 
+  .logo-circles {
+    position: relative;
+    width: 64px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+ 
+  .lc-a {
+    position: absolute;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--terra);
+    opacity: 0.7;
+    top: 1px; left: 0;
+  }
+ 
+  .lc-b {
+    position: absolute;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--sage);
+    opacity: 0.7;
+    top: 1px; right: 0;
+  }
+ 
+  .lc-mid {
+    position: absolute;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--charcoal);
+    top: 11px; left: 23px;
+  }
+ 
+  .logo-wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: var(--ivory);
+  }
+ 
+  /* ── PERSONAS ── */
+  .personas { background: var(--charcoal); padding: 6rem 5rem; }
+  .personas .section-title { color: var(--ivory); }
+  .personas .section-eyebrow { color: var(--terra); }
+ 
+  .persona-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 3rem;
+    background: rgba(255,255,255,0.05);
+  }
+ 
+  .persona-card {
+    background: rgba(255,255,255,0.03);
+    padding: 2.5rem 2rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.3s, transform 0.3s;
+    position: relative;
+  }
+ 
+  .persona-card:hover {
+    background: rgba(255,255,255,0.07);
+    transform: translateY(-4px);
+  }
+ 
+  .persona-avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 1.25rem;
+  }
+ 
+  .persona-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--ivory);
+    margin-bottom: 0.25rem;
+  }
+ 
+  .persona-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: var(--stone-dk);
+    margin-bottom: 1rem;
+  }
+ 
+  .persona-role {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+ 
+  .persona-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.6;
+    border-left: 2px solid;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+  }
+ 
+  .persona-why {
+    font-size: 0.75rem;
+    color: var(--stone-dk);
+    line-height: 1.6;
+  }
+ 
+  /* ── COMPETITOR MAP ── */
+  .market { padding: 6rem 5rem; }
+ 
+  .competitors-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--stone);
+    margin-top: 3rem;
+  }
+ 
+  .comp-card {
+    background: var(--white);
+    padding: 1.75rem;
+    transition: background 0.2s;
+  }
+ 
+  .comp-card:hover { background: var(--ivory); }
+  .comp-card.ayuriva { background: var(--charcoal); }
+  .comp-card.ayuriva:hover { background: #1a1a18; }
+ 
+  .comp-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+  }
+ 
+  .comp-card.ayuriva .comp-name { color: var(--ivory); }
+ 
+  .comp-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+  }
+ 
+  .type-clinical-badge { background: rgba(196,103,74,0.12); color: var(--terra); }
+  .type-natural-badge { background: rgba(107,143,113,0.15); color: var(--sage-dk); }
+  .type-hybrid-badge { background: rgba(44,44,42,0.08); color: var(--charcoal); }
+  .type-ayuriva-badge { background: rgba(196,103,74,0.25); color: var(--terra); }
+ 
+  .comp-detail {
+    font-size: 0.8rem;
+    color: var(--stone-dk);
+    line-height: 1.6;
+  }
+ 
+  .comp-card.ayuriva .comp-detail { color: rgba(245,240,232,0.55); }
+ 
+  .comp-weakness {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    font-style: italic;
+    color: var(--stone-dk);
+  }
+ 
+  .comp-card.ayuriva .comp-weakness { color: var(--terra); }
+ 
+  /* ── GTM ── */
+  .gtm { background: var(--ivory); padding: 6rem 5rem; }
+ 
+  .gtm-timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    position: relative;
+  }
+ 
+  .gtm-phase {
+    position: relative;
+  }
+ 
+  .gtm-phase-header {
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1px;
+  }
+ 
+  .gtm-phase-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+ 
+  .gtm-phase-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+ 
+  .gtm-phase-months {
+    font-size: 0.75rem;
+    opacity: 0.7;
+  }
+ 
+  .gtm-phase-items {
+    background: var(--white);
+    border: 1px solid var(--stone);
+    padding: 1.25rem 1.5rem;
+    margin-left: -1px;
+  }
+ 
+  .gtm-item {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--charcoal);
+    padding: 0.3rem 0;
+    border-bottom: 1px solid var(--stone);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+ 
+  .gtm-item:last-child { border-bottom: none; }
+ 
+  .gtm-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+ 
+  /* ── RESUME SECTION ── */
+  .resume-section { padding: 6rem 5rem; background: var(--charcoal); }
+  .resume-section .section-title { color: var(--ivory); }
+  .resume-section .section-eyebrow { color: var(--terra); }
+ 
+  .resume-block {
+    background: rgba(245,240,232,0.04);
+    border: 1px solid rgba(245,240,232,0.08);
+    padding: 2.5rem;
+    margin-top: 3rem;
+    font-family: 'DM Sans', sans-serif;
+  }
+ 
+  .resume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.25rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+ 
+  .resume-role {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ivory);
+  }
+ 
+  .resume-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--stone-dk);
+  }
+ 
+  .resume-company {
+    font-size: 0.82rem;
+    color: var(--stone-dk);
+    margin-bottom: 1.25rem;
+    font-style: italic;
+  }
+ 
+  .resume-bullet {
+    font-size: 0.85rem;
+    color: rgba(245,240,232,0.6);
+    line-height: 1.7;
+    padding-left: 1.25rem;
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+ 
+  .resume-bullet::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--terra);
+    font-size: 1.2rem;
+    line-height: 1.3;
+  }
+ 
+  .resume-bullet strong { color: var(--ivory); font-weight: 500; }
+ 
+  .resume-deliverables {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: var(--terra);
+  }
+ 
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 3rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+ 
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--stone-dk);
+  }
+ 
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--terra);
+  }
+ 
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: rgba(136,135,128,0.5);
+    text-transform: uppercase;
+  }
+ 
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+ 
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+ 
+  @keyframes floatA {
+    0%, 100% { transform: translate(0, 0); }
+    50%       { transform: translate(20px, 10px); }
+  }
+ 
+  @keyframes floatB {
+    0%, 100% { transform: translate(0, 0); }
+    50%       { transform: translate(-20px, -10px); }
+  }
+ 
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; transform: scaleY(1); }
+    50%       { opacity: 0.3; transform: scaleY(0.6); }
+  }
+ 
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+ 
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+ 
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { height: 300px; }
+    .hero-left { padding: 4rem 1.5rem 3rem; }
+    section { padding: 4rem 1.5rem; }
+    .brief { padding: 4rem 1.5rem; }
+    .brief-grid { grid-template-columns: 1fr; gap: 2px; }
+    .stats { grid-template-columns: 1fr 1fr; padding: 3rem 1.5rem; }
+    .phases { padding: 4rem 1.5rem; }
+    .phases-header { grid-template-columns: 1fr; gap: 1.5rem; }
+    .phase-panel { grid-template-columns: 1fr; }
+    .manifesto { padding: 4rem 1.5rem; }
+    .identity { padding: 4rem 1.5rem; }
+    .identity-grid { grid-template-columns: 1fr; }
+    .personas { padding: 4rem 1.5rem; }
+    .persona-cards { grid-template-columns: 1fr; }
+    .market { padding: 4rem 1.5rem; }
+    .competitors-grid { grid-template-columns: 1fr 1fr; }
+    .gtm { padding: 4rem 1.5rem; }
+    .gtm-timeline { grid-template-columns: 1fr 1fr; }
+    .resume-section { padding: 4rem 1.5rem; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">AYURIVA</a>
+  <ul class="nav-links">
+    <li><a href="#brief">Brief</a></li>
+    <li><a href="#phases">Phases</a></li>
+    <li><a href="#identity">Identity</a></li>
+    <li><a href="#market">Market</a></li>
+    <li><a href="#resume">Resume</a></li>
+  </ul>
+</nav>
+ 
+<!-- HERO -->
+<section class="hero" style="padding:0">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Brand Strategy Portfolio · 2024</div>
+    <h1 class="hero-title">AYURIVA</h1>
+    <p class="hero-tagline">Better together. Proven separately.</p>
+    <p class="hero-desc">An end-to-end brand strategy for India's first intentional hybrid skincare brand — pairing clinical science with Indian Ayurveda, by design.</p>
+    <div class="hero-cta">
+      <a href="#brief" class="btn-primary">View Strategy</a>
+      <a href="#resume" class="btn-secondary">Resume Entry</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-circles">
+      <div class="circle-a"></div>
+      <div class="circle-b"></div>
+      <div class="circle-center"></div>
+    </div>
+    <div class="hero-wordmark">AYURIVA</div>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="scroll-text">Scroll</div>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+ 
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-box reveal">
+    <div class="stat-num">$5.6B</div>
+    <div class="stat-label">Market size 2024</div>
+    <div class="stat-sub">Indian skincare category</div>
+  </div>
+  <div class="stat-box reveal" style="transition-delay:0.1s">
+    <div class="stat-num">8.2%</div>
+    <div class="stat-label">CAGR through 2028</div>
+    <div class="stat-sub">Projected growth rate</div>
+  </div>
+  <div class="stat-box reveal" style="transition-delay:0.2s">
+    <div class="stat-num">62%</div>
+    <div class="stat-label">D2C growth since 2020</div>
+    <div class="stat-sub">Digital-first brand boom</div>
+  </div>
+  <div class="stat-box hero-stat reveal" style="transition-delay:0.3s">
+    <div class="stat-num" style="color:var(--white)">0</div>
+    <div class="stat-label">Scaled hybrid brands</div>
+    <div class="stat-sub">AYURIVA's whitespace</div>
+  </div>
+</div>
+ 
+<!-- BRIEF -->
+<section class="brief" id="brief">
+  <div class="section-eyebrow reveal">The Brand Idea</div>
+  <h2 class="section-title reveal">Why AYURIVA exists</h2>
+  <p class="section-body reveal" style="color:rgba(245,240,232,0.55)">Indian skincare forces a false choice. AYURIVA was built to prove that choice doesn't have to exist.</p>
+ 
+  <div class="brief-grid">
+    <div class="brief-cell why reveal">
+      <div class="brief-label">The Why</div>
+      <div class="brief-heading">Prove the partnership</div>
+      <div class="brief-text">Clinical science and Indian Ayurveda are not opposites. They are partners. AYURIVA exists to prove it — in every formula, every ingredient pair, every drop.</div>
+    </div>
+    <div class="brief-cell how reveal" style="transition-delay:0.15s">
+      <div class="brief-label">The How</div>
+      <div class="brief-heading">Identify what works together</div>
+      <div class="brief-text">We identify ingredients that work best together on a specific problem — one from the lab, one from the earth — and put only those in the bottle.</div>
+    </div>
+    <div class="brief-cell what reveal" style="transition-delay:0.3s">
+      <div class="brief-label">The What</div>
+      <div class="brief-heading">Hybrid skincare</div>
+      <div class="brief-text">Intentional hybrid skincare for the urban Indian mass market. Not clinical-only. Not natural-only. The best of both — together, by design.</div>
+    </div>
+  </div>
+</section>
+ 
+<!-- PHASES -->
+<section class="phases" id="phases">
+  <div class="phases-header">
+    <div>
+      <div class="section-eyebrow reveal">5-Phase Process</div>
+      <h2 class="section-title reveal">The strategy, built phase by phase</h2>
+    </div>
+    <div class="reveal">
+      <p style="font-size:0.875rem;color:var(--stone-dk);line-height:1.7;margin-bottom:1rem">From brand foundation to visual identity — every phase of AYURIVA's strategy is documented, evidenced, and portfolio-ready.</p>
+      <div class="phase-nav">
+        <button class="phase-btn active" onclick="showPhase(1)">01 Foundation</button>
+        <button class="phase-btn" onclick="showPhase(2)">02 Research</button>
+        <button class="phase-btn" onclick="showPhase(3)">03 Personas</button>
+        <button class="phase-btn" onclick="showPhase(4)">04 Product</button>
+        <button class="phase-btn" onclick="showPhase(5)">05 Identity</button>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="phase-panels">
+    <div class="phase-panel active" id="panel-1">
+      <div>
+        <div class="phase-number">01</div>
+        <div class="phase-name">Brand Foundation</div>
+        <h3 class="phase-title">Positioning, personality, and voice</h3>
+        <p class="phase-desc">Established the brand's philosophical core — the Golden Circle, positioning statement, archetype system (Sage + Caregiver + Hero), tone of voice guide, and full brand manifesto. Every subsequent decision flows from this foundation.</p>
+        <div class="phase-deliverables">
+          <span class="deliverable-tag">Brand name: AYURIVA</span>
+          <span class="deliverable-tag">Positioning statement</span>
+          <span class="deliverable-tag">Archetype triangle</span>
+          <span class="deliverable-tag">Tone of voice guide</span>
+          <span class="deliverable-tag">Brand manifesto</span>
+        </div>
+      </div>
+      <div class="phase-insights">
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text"><strong>Tagline:</strong> "Better together. Proven separately." — communicates the dual-ingredient story in four words.</div>
+        </div>
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text"><strong>Sage (40%)</strong> leads because ingredient-educated Indians need to understand why before they trust.</div>
+        </div>
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text"><strong>The enemy</strong> is not a brand — it's the false choice between fast-and-harsh vs slow-and-gentle.</div>
+        </div>
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text">Voice rule: <strong>precise and warm</strong>. Never preachy. Never corporate. Never hyperbolic.</div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="phase-panel" id="panel-2">
+      <div>
+        <div class="phase-number">02</div>
+        <div class="phase-name">Market Research</div>
+        <h3 class="phase-title">Category, competition, and whitespace</h3>
+        <p class="phase-desc">Sized the Indian skincare category, audited 8 direct and indirect competitors, mapped consumer trends from r/IndianSkincareAddicts, and identified the precise positioning whitespace: intentional hybrid formulation at mass-accessible pricing.</p>
+        <div class="phase-deliverables">
+          <span class="deliverable-tag">Category sizing</span>
+          <span class="deliverable-tag">8-brand competitor audit</span>
+          <span class="deliverable-tag">Consumer trend analysis</span>
+          <span class="deliverable-tag">Positioning map</span>
+          <span class="deliverable-tag">Market research report</span>
+        </div>
+      </div>
+      <div class="phase-insights">
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text"><strong>$5.6B market, 0 hybrid incumbents.</strong> The whitespace isn't a gap — it's a valley with no competition.</div>
+        </div>
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text">Consumer verbatim: <strong>"I don't want to feel like I'm doing chemistry on my face every morning."</strong></div>
+        </div>
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text">Dot & Key and Pilgrim are <strong>accidental hybrids</strong> — they mix ingredients but don't own the positioning.</div>
+        </div>
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text"><strong>₹500–900 price band</strong> is least competitive: above Minimalist's commodity, below Forest Essentials' luxury.</div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="phase-panel" id="panel-3">
+      <div>
+        <div class="phase-number">03</div>
+        <div class="phase-name">Consumer Personas</div>
+        <h3 class="phase-title">Three people, one whitespace</h3>
+        <p class="phase-desc">Built three detailed consumer personas — Shreya (ingredient-educated, barrier-damaged), Arjun (results-first, time-poor), and Meera (heritage-conscious, trust-driven) — each with psychographic profiling, purchase triggers, and strategic role.</p>
+        <div class="phase-deliverables">
+          <span class="deliverable-tag">3 persona cards</span>
+          <span class="deliverable-tag">Psychographic bars</span>
+          <span class="deliverable-tag">Buy/avoid triggers</span>
+          <span class="deliverable-tag">Channel mapping</span>
+          <span class="deliverable-tag">Strategic role per persona</span>
+        </div>
+      </div>
+      <div class="phase-insights">
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text"><strong>Shreya</strong> is the launch audience — hardest to win, most valuable once won. Reddit is her channel.</div>
+        </div>
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text"><strong>Arjun</strong> drives growth volume — convert with before/after evidence and clear problem-solution framing.</div>
+        </div>
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text"><strong>Meera</strong> is the loyalty audience — highest lifetime value, lowest churn. Brand story converts her.</div>
+        </div>
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text">All three personas have <strong>lived the exact problem</strong> AYURIVA solves — validated by their own quotes.</div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="phase-panel" id="panel-4">
+      <div>
+        <div class="phase-number">04</div>
+        <div class="phase-name">Product Strategy</div>
+        <h3 class="phase-title">One hero SKU. Three-pillar architecture.</h3>
+        <p class="phase-desc">Selected the hero SKU (Niacinamide 10% + Manjistha Extract serum, ₹699), built the Treat / Cleanse / Restore brand architecture, and designed a 12-month D2C go-to-market plan across Nykaa, Instagram, Reddit, and Amazon.</p>
+        <div class="phase-deliverables">
+          <span class="deliverable-tag">Hero SKU brief</span>
+          <span class="deliverable-tag">Ingredient pairing rationale</span>
+          <span class="deliverable-tag">3-pillar architecture</span>
+          <span class="deliverable-tag">Pricing ladder</span>
+          <span class="deliverable-tag">12-month GTM plan</span>
+        </div>
+      </div>
+      <div class="phase-insights">
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text"><strong>Niacinamide</strong> — most searched skincare active in India. <strong>Manjistha</strong> — Ayurvedic brightening with modern clinical validation.</div>
+        </div>
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text">The <strong>Treat / Cleanse / Restore</strong> architecture can scale to 15+ SKUs without losing range coherence.</div>
+        </div>
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text"><strong>Nykaa on Day 1.</strong> Reddit by Month 2. Amazon by Month 7. D2C site by Month 8. Sequenced for proof before scale.</div>
+        </div>
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text">The window to own hybrid positioning before a funded incumbent moves in: <strong>12–18 months.</strong></div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="phase-panel" id="panel-5">
+      <div>
+        <div class="phase-number">05</div>
+        <div class="phase-name">Visual Identity</div>
+        <h3 class="phase-title">Scientific warmth — the third visual language</h3>
+        <p class="phase-desc">Developed the complete visual identity system: 5-colour palette, dual-typeface system, intersection mark logo, packaging brief, photography art direction, and social media visual language — all documented in the brand identity guidelines.</p>
+        <div class="phase-deliverables">
+          <span class="deliverable-tag">5-colour palette</span>
+          <span class="deliverable-tag">Dual-typeface system</span>
+          <span class="deliverable-tag">Intersection mark logo</span>
+          <span class="deliverable-tag">Packaging brief</span>
+          <span class="deliverable-tag">Photography direction</span>
+          <span class="deliverable-tag">Brand guidelines doc</span>
+        </div>
+      </div>
+      <div class="phase-insights">
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text"><strong>Ivory + Terracotta + Sage</strong> — a palette that exists nowhere in Indian skincare. Not clinical white. Not earthy green.</div>
+        </div>
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text">The <strong>dual-type rule</strong>: clinical actives in DM Sans tracked caps. Ayurvedic names in Cormorant Garamond italic. Two typefaces = one brand idea.</div>
+        </div>
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text">The <strong>intersection mark</strong>: two overlapping circles (terracotta + sage) with a charcoal overlap zone. The logo IS the brand idea.</div>
+        </div>
+        <div class="phase-insight">
+          <div class="insight-dot"></div>
+          <div class="insight-text"><strong>Matte everything.</strong> No gold foil. No gloss. No leaf illustration. The packaging feels considered — not luxury-signalling.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- MANIFESTO -->
+<section class="manifesto" style="padding-top:8rem;padding-bottom:8rem">
+  <div class="manifesto-label reveal">Brand Manifesto</div>
+  <div class="manifesto-text reveal">
+    <strong>Your skin is not a problem to be solved by one side of a debate.</strong><br><br>
+    For too long, skincare has asked you to choose. The lab or the forest. Speed or safety. Results or respect.<br><br>
+    <em>We think that's a false choice — and we built AYURIVA to prove it.</em><br><br>
+    Indian Ayurveda spent 5,000 years learning what the skin needs. Clinical science spent a century proving exactly how to deliver it. These are not competing ideas. They are two halves of the same answer.<br><br>
+    Every AYURIVA formula starts with one question: which ingredients — from the earth or the lab — work best on this problem, together? Then we put only those in the bottle.
+  </div>
+  <div class="manifesto-tagline reveal">Better together. Proven separately.</div>
+</section>
+ 
+<!-- VISUAL IDENTITY -->
+<section class="identity" id="identity">
+  <div class="section-eyebrow reveal">Phase 5 — Visual Identity</div>
+  <h2 class="section-title reveal">Design as strategy made visible</h2>
+  <p class="section-body reveal">The visual system doesn't decorate the brand idea. It is the brand idea — two worlds meeting in one palette, one typeface pair, one logo mark.</p>
+ 
+  <div class="identity-grid">
+    <div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--charcoal);margin-bottom:1rem;margin-top:2rem" class="reveal">Colour palette</h3>
+      <div class="colour-strip reveal">
+        <div class="colour-swatch" style="background:#F5F0E8;border:1px solid #D9D2C4">
+          <span class="swatch-label" style="color:#888780">Ivory<br>#F5F0E8</span>
+        </div>
+        <div class="colour-swatch" style="background:#C4674A">
+          <span class="swatch-label" style="color:#F5F0E8">Terracotta<br>#C4674A</span>
+        </div>
+        <div class="colour-swatch" style="background:#6B8F71">
+          <span class="swatch-label" style="color:#F5F0E8">Sage<br>#6B8F71</span>
+        </div>
+        <div class="colour-swatch" style="background:#2C2C2A">
+          <span class="swatch-label" style="color:#F5F0E8">Charcoal<br>#2C2C2A</span>
+        </div>
+        <div class="colour-swatch" style="background:#D9D2C4;border:1px solid #B4B2A9">
+          <span class="swatch-label" style="color:#888780">Stone<br>#D9D2C4</span>
+        </div>
+      </div>
+ 
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--charcoal);margin-bottom:1rem;margin-top:2rem" class="reveal">The dual-type rule</h3>
+      <div class="type-demo reveal">
+        <div class="type-clinical">NIACINAMIDE 10%</div>
+        <div class="type-divider"></div>
+        <div class="type-ayur">Manjistha Extract</div>
+        <p class="type-caption">DM Sans tracked caps for clinical actives · Cormorant Garamond italic for Ayurvedic names. Two typefaces, one label, one brand idea.</p>
+      </div>
+    </div>
+ 
+    <div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--charcoal);margin-bottom:1rem;margin-top:2rem" class="reveal">The intersection mark</h3>
+      <div class="logo-demo reveal">
+        <div class="logo-circles">
+          <div class="lc-a"></div>
+          <div class="lc-b"></div>
+          <div class="lc-mid"></div>
+        </div>
+        <div class="logo-wordmark">AYURIVA</div>
+      </div>
+      <p style="font-size:0.8rem;color:var(--stone-dk);margin-bottom:2rem;line-height:1.7" class="reveal">Terracotta (clinical) and sage (Ayurvedic) overlap to create the charcoal intersection zone — where AYURIVA lives. The logo encodes the entire brand idea without a word.</p>
+ 
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--charcoal);margin-bottom:1rem" class="reveal">Aesthetic direction</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" class="reveal">
+        <div style="padding:1rem;background:var(--white);border:1px solid var(--stone)">
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;color:var(--sage);text-transform:uppercase;margin-bottom:0.5rem">Always</div>
+          <div style="font-size:0.78rem;color:var(--charcoal);line-height:1.7">Ivory backgrounds · Matte finishes · Warm photography · Ingredient pair named · Generous whitespace</div>
+        </div>
+        <div style="padding:1rem;background:var(--white);border:1px solid var(--stone)">
+          <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;color:var(--terra);text-transform:uppercase;margin-bottom:0.5rem">Never</div>
+          <div style="font-size:0.78rem;color:var(--charcoal);line-height:1.7">Clinical white + blue · Dark earthy green · Gold foil · Glossy packaging · Overnight results claims</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- PERSONAS -->
+<section class="personas" id="personas">
+  <div class="section-eyebrow reveal">Phase 3 — Consumer Personas</div>
+  <h2 class="section-title reveal">Who AYURIVA is built for</h2>
+  <div class="persona-cards">
+    <div class="persona-card reveal">
+      <div class="persona-avatar" style="background:var(--terra)">SR</div>
+      <div class="persona-name">Shreya Rajan</div>
+      <div class="persona-meta">26 · Bengaluru · UX Designer</div>
+      <div class="persona-role" style="background:rgba(196,103,74,0.2);color:var(--terra)">Launch audience</div>
+      <div class="persona-quote" style="border-color:var(--terra);">"I know what ingredients work. I just don't know how to use them without destroying my skin barrier."</div>
+      <div class="persona-why">Hardest to win. Most valuable once won. Her Reddit recommendation is worth more than any ad.</div>
+    </div>
+    <div class="persona-card reveal" style="transition-delay:0.15s">
+      <div class="persona-avatar" style="background:var(--charcoal);border:1px solid rgba(255,255,255,0.1)">AK</div>
+      <div class="persona-name">Arjun Kapoor</div>
+      <div class="persona-meta">29 · Mumbai · Product Manager</div>
+      <div class="persona-role" style="background:rgba(255,255,255,0.06);color:var(--stone)">Growth audience</div>
+      <div class="persona-quote" style="border-color:var(--stone-dk)">"Just tell me what to use and why it works. I don't have time to become a skincare expert."</div>
+      <div class="persona-why">Highest volume. Easiest to convert with clear before/after. Drives revenue scale.</div>
+    </div>
+    <div class="persona-card reveal" style="transition-delay:0.3s">
+      <div class="persona-avatar" style="background:var(--sage)">MS</div>
+      <div class="persona-name">Meera Sharma</div>
+      <div class="persona-meta">33 · Delhi · Marketing Manager</div>
+      <div class="persona-role" style="background:rgba(107,143,113,0.2);color:var(--sage)">Loyalty audience</div>
+      <div class="persona-quote" style="border-color:var(--sage)">"I don't want to choose between what my grandmother trusted and what science has proven."</div>
+      <div class="persona-why">Highest lifetime value. Lowest churn. Brand story converts her. Once committed, she doesn't leave.</div>
+    </div>
+  </div>
+</section>
+ 
+<!-- MARKET / COMPETITORS -->
+<section class="market" id="market">
+  <div class="section-eyebrow reveal">Phase 2 — Competitive Landscape</div>
+  <h2 class="section-title reveal">Who's in the market. Where AYURIVA fits.</h2>
+  <p class="section-body reveal">An audit of 8 competitors reveals two overcrowded camps and one unoccupied position — the intentional hybrid.</p>
+ 
+  <div class="competitors-grid">
+    <div class="comp-card reveal">
+      <div class="comp-name">The Minimalist</div>
+      <span class="comp-type type-clinical-badge">Pure Clinical</span>
+      <div class="comp-detail">₹399–₹999 · Lab-grade, ingredient transparency</div>
+      <div class="comp-weakness">No cultural warmth. Feels cold and harsh.</div>
+    </div>
+    <div class="comp-card reveal" style="transition-delay:0.1s">
+      <div class="comp-name">Mamaearth</div>
+      <span class="comp-type type-natural-badge">Pure Natural</span>
+      <div class="comp-detail">₹299–₹699 · Toxin-free, family-safe</div>
+      <div class="comp-weakness">Slow results. Low ingredient credibility.</div>
+    </div>
+    <div class="comp-card reveal" style="transition-delay:0.2s">
+      <div class="comp-name">Dot & Key</div>
+      <span class="comp-type type-hybrid-badge">Hybrid-adjacent</span>
+      <div class="comp-detail">₹495–₹1,295 · Fun, skin-positive</div>
+      <div class="comp-weakness">No ownable ingredient narrative.</div>
+    </div>
+    <div class="comp-card reveal" style="transition-delay:0.1s">
+      <div class="comp-name">Pilgrim</div>
+      <span class="comp-type type-hybrid-badge">Hybrid-adjacent</span>
+      <div class="comp-detail">₹395–₹895 · Global beauty rituals</div>
+      <div class="comp-weakness">No Indian identity. Hybrid by accident.</div>
+    </div>
+    <div class="comp-card reveal" style="transition-delay:0.2s">
+      <div class="comp-name">Forest Essentials</div>
+      <span class="comp-type type-natural-badge">Luxury Natural</span>
+      <div class="comp-detail">₹800–₹3,500 · Ayurvedic luxury heritage</div>
+      <div class="comp-weakness">Unaffordable. No clinical credibility.</div>
+    </div>
+    <div class="comp-card ayuriva reveal" style="transition-delay:0.3s">
+      <div class="comp-name">AYURIVA</div>
+      <span class="comp-type type-ayuriva-badge">Intentional Hybrid</span>
+      <div class="comp-detail">₹500–₹900 · Clinical + Ayurvedic by design</div>
+      <div class="comp-weakness">First-mover. Category needs education.</div>
+    </div>
+  </div>
+</section>
+ 
+<!-- GTM -->
+<section class="gtm">
+  <div class="section-eyebrow reveal">Phase 4 — Go-To-Market</div>
+  <h2 class="section-title reveal">12-month launch roadmap</h2>
+ 
+  <div class="gtm-timeline">
+    <div class="gtm-phase reveal">
+      <div class="gtm-phase-header" style="background:var(--terra);color:var(--white)">
+        <div class="gtm-phase-num">01</div>
+        <div class="gtm-phase-label">Seed</div>
+        <div class="gtm-phase-months">Months 1–3</div>
+      </div>
+      <div class="gtm-phase-items">
+        <div class="gtm-item"><div class="gtm-dot" style="background:var(--terra)"></div>Hero SKU launch only</div>
+        <div class="gtm-item"><div class="gtm-dot" style="background:var(--terra)"></div>Nykaa listing live</div>
+        <div class="gtm-item"><div class="gtm-dot" style="background:var(--terra)"></div>10 micro-creator seeds</div>
+        <div class="gtm-item"><div class="gtm-dot" style="background:var(--terra)"></div>r/IndianSkincareAddicts</div>
+      </div>
+    </div>
+    <div class="gtm-phase reveal" style="transition-delay:0.1s">
+      <div class="gtm-phase-header" style="background:var(--sage);color:var(--white)">
+        <div class="gtm-phase-num">02</div>
+        <div class="gtm-phase-label">Validate</div>
+        <div class="gtm-phase-months">Months 4–6</div>
+      </div>
+      <div class="gtm-phase-items">
+        <div class="gtm-item"><div class="gtm-dot" style="background:var(--sage)"></div>Add face wash SKU</div>
+        <div class="gtm-item"><div class="gtm-dot" style="background:var(--sage)"></div>First paid Meta ads</div>
+        <div class="gtm-item"><div class="gtm-dot" style="background:var(--sage)"></div>"Why we pair" content</div>
+        <div class="gtm-item"><div class="gtm-dot" style="background:var(--sage)"></div>500 reviews target</div>
+      </div>
+    </div>
+    <div class="gtm-phase reveal" style="transition-delay:0.2s">
+      <div class="gtm-phase-header" style="background:var(--charcoal);color:var(--ivory)">
+        <div class="gtm-phase-num">03</div>
+        <div class="gtm-phase-label">Scale</div>
+        <div class="gtm-phase-months">Months 7–9</div>
+      </div>
+      <div class="gtm-phase-items">
+        <div class="gtm-item"><div class="gtm-dot" style="background:var(--charcoal)"></div>Night cream launch</div>
+        <div class="gtm-item"><div class="gtm-dot" style="background:var(--charcoal)"></div>YouTube partnerships</div>
+        <div class="gtm-item"><div class="gtm-dot" style="background:var(--charcoal)"></div>Amazon India live</div>
+        <div class="gtm-item"><div class="gtm-dot" style="background:var(--charcoal)"></div>Own D2C site</div>
+      </div>
+    </div>
+    <div class="gtm-phase reveal" style="transition-delay:0.3s">
+      <div class="gtm-phase-header" style="background:var(--stone-dk);color:var(--white)">
+        <div class="gtm-phase-num">04</div>
+        <div class="gtm-phase-label">Expand</div>
+        <div class="gtm-phase-months">Months 10–12</div>
+      </div>
+      <div class="gtm-phase-items">
+        <div class="gtm-item"><div class="gtm-dot" style="background:var(--stone-dk)"></div>Full 3-pillar range</div>
+        <div class="gtm-item"><div class="gtm-dot" style="background:var(--stone-dk)"></div>Select Nykaa stores</div>
+        <div class="gtm-item"><div class="gtm-dot" style="background:var(--stone-dk)"></div>Tier 2 city push</div>
+        <div class="gtm-item"><div class="gtm-dot" style="background:var(--stone-dk)"></div>Loyalty programme</div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- RESUME -->
+<section class="resume-section" id="resume">
+  <div class="section-eyebrow reveal">Portfolio → Resume</div>
+  <h2 class="section-title reveal">How this appears on your CV</h2>
+  <p class="section-body reveal" style="color:rgba(245,240,232,0.5)">Copy-ready resume entry — three-bullet version recommended for most applications.</p>
+ 
+  <div class="resume-block reveal">
+    <div class="resume-header">
+      <div class="resume-role">Brand Strategist — AYURIVA (Portfolio Project)</div>
+      <div class="resume-date">2024</div>
+    </div>
+    <div class="resume-company">End-to-end brand strategy for a concept hybrid skincare brand · Indian market</div>
+    <div class="resume-bullet">Built <strong>5-phase brand strategy</strong> for a hybrid skincare concept targeting the ₹5.6B Indian D2C skincare market — from brand foundation through visual identity system.</div>
+    <div class="resume-bullet">Conducted <strong>competitive landscape analysis</strong> of 8 Indian skincare brands, identifying unoccupied positioning whitespace: intentional clinical + Ayurvedic hybrid formulation at ₹599–799 price point.</div>
+    <div class="resume-bullet">Developed <strong>brand positioning, archetype system, 3 consumer personas, GTM plan, and full visual identity system</strong> including logo, packaging brief, and brand identity guidelines document.</div>
+    <div class="resume-deliverables">Deliverables: 18-slide portfolio deck · Brand identity guidelines · Market research report · Consumer persona cards</div>
+  </div>
+</section>
+ 
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">AYURIVA</div>
+    <div class="footer-tagline">Better together. Proven separately.</div>
+  </div>
+  <div class="footer-copy">Brand Strategy Portfolio · 2024 · Indian Skincare Market</div>
+</footer>
+ 
+<script>
+// ── PHASE SWITCHER
+function showPhase(n) {
+  document.querySelectorAll('.phase-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.phase-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + n).classList.add('active');
+  document.querySelectorAll('.phase-btn')[n - 1].classList.add('active');
+}
+ 
+// ── SCROLL REVEAL
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+ 
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+ 
+// ── NAV ACTIVE STATE
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  nav.style.background = window.scrollY > 50
+    ? 'rgba(245,240,232,0.96)'
+    : 'rgba(245,240,232,0.88)';
+});
+</script>
+</body>
+</html>
+ 
